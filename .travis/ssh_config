@@ -1,0 +1,15 @@
+Host github.com
+    User git
+    StrictHostKeyChecking no
+    IdentityFile ~/.ssh/github_deploy_key
+    IdentitiesOnly yes
+Host gitcafe.com
+    User git
+    StrictHostKeyChecking no
+    IdentityFile ~/.ssh/github_deploy_key
+    IdentitiesOnly yes
+Host git.coding.net
+    User git
+    StrictHostKeyChecking no
+    IdentityFile ~/.ssh/github_deploy_key
+    IdentitiesOnly yes

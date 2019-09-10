@@ -1,0 +1,25 @@
+language: bash
+
+os: windows
+env:
+  - PATH=$PATH:/c/Users/travis/scoop/shims
+
+before_install:
+  - powershell "Set-ExecutionPolicy RemoteSigned -scope CurrentUser"
+  - powershell "iwr -useb get.scoop.sh | iex"
+  - powershell "scoop install hub"
+  - mkdir ~/.ssh && touch ~/.ssh/github_deploy_key
+  - openssl aes-256-cbc -K $encrypted_1f3087bec4ab_key -iv $encrypted_1f3087bec4ab_iv -in .travis/github_deploy_key.enc -out ~/.ssh/github_deploy_key -d
+  - chmod 600 ~/.ssh/github_deploy_key
+  - eval $(ssh-agent)
+  - ssh-add ~/.ssh/github_deploy_key
+  - cp .travis/ssh_config ~/.ssh/config
+  - git config --global user.name 'Mogeko'
+  - git config --global user.email 'zhengjunyi@live.com'
+
+before_script:
+  - git clone git@github.com:Mogeko/scoop-sysinternals.git
+  - cd scoop-sysinternals
+
+script:
+  - powershell ./bin/auto-pr.ps1
